@@ -1,0 +1,11 @@
+query,customer_name,email,priority
+I want refund as the product is not according to the expectation,John Doe,john@example.com,high
+How do I reset my password? The reset link is not working,Jane Smith,jane@example.com,medium
+The app keeps crashing when I try to upload images,Mike Johnson,mike@example.com,high
+I need information about your data encryption standards,Sarah Lee,sarah@example.com,critical
+Can I change my username in the account settings?,Bob Wilson,bob@example.com,low
+I was charged twice for my subscription this month,Alice Brown,alice@example.com,critical
+The API returns 403 Forbidden errors with valid API key,Tom Davis,tom@example.com,high
+Please add dark mode to the mobile app,Emma White,emma@example.com,low
+My account is locked and I cannot log in,Chris Martin,chris@example.com,high
+How long does international shipping take?,Lisa Taylor,lisa@example.com,low

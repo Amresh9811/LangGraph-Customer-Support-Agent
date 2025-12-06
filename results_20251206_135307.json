@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "total": 10,
+    "successful": 10,
+    "failed": 0,
+    "avg_processing_time_ms": 2207.358,
+    "escalated_count": 0,
+    "avg_confidence": 0.95
+  },
+  "results": [
+    {
+      "success": true,
+      "query": "I want refund as the product is not according to the expectation",
+      "ticket_id": "TICKET-20251206-135303-076229",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2269.81,
+      "response": "Dear John Doe,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135303-076229\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "How do I reset my password? The reset link is not working",
+      "ticket_id": "TICKET-20251206-135303-349697",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2052.12,
+      "response": "Dear Jane Smith,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135303-349697\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "The app keeps crashing when I try to upload images",
+      "ticket_id": "TICKET-20251206-135303-532234",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2277.6,
+      "response": "Dear Mike Johnson,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135303-532234\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "I need information about your data encryption standards",
+      "ticket_id": "TICKET-20251206-135303-714767",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2271.44,
+      "response": "Dear Sarah Lee,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135303-714767\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "Can I change my username in the account settings?",
+      "ticket_id": "TICKET-20251206-135303-949231",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2058.14,
+      "response": "Dear Bob Wilson,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135303-949231\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "I was charged twice for my subscription this month",
+      "ticket_id": "TICKET-20251206-135304-132175",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2289.01,
+      "response": "Dear Alice Brown,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135304-132175\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "The API returns 403 Forbidden errors with valid API key",
+      "ticket_id": "TICKET-20251206-135304-332448",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2282.17,
+      "response": "Dear Tom Davis,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135304-332448\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "Please add dark mode to the mobile app",
+      "ticket_id": "TICKET-20251206-135304-542098",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2271.44,
+      "response": "Dear Emma White,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135304-542098\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "My account is locked and I cannot log in",
+      "ticket_id": "TICKET-20251206-135304-727621",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2261.78,
+      "response": "Dear Chris Martin,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135304-727621\n\nBest regards,\nSkylarIQ Support"
+    },
+    {
+      "success": true,
+      "query": "How long does international shipping take?",
+      "ticket_id": "TICKET-20251206-135304-929404",
+      "status": "closed",
+      "escalated": false,
+      "confidence": 0.95,
+      "processing_time_ms": 2040.07,
+      "response": "Dear Lisa Taylor,\n\nThank you for contacting support. Here's the solution to your issue:\n\nUse the 'Forgot Password' link on the login page\n\nReference: KB-1234\nTicket ID: TICKET-20251206-135304-929404\n\nBest regards,\nSkylarIQ Support"
+    }
+  ]
+}

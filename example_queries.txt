@@ -1,0 +1,20 @@
+I want refund as the product is not according to the expectation
+How do I reset my password? The reset link is not working
+The app keeps crashing when I try to upload large images
+I need information about your data encryption and compliance standards
+Can I change my username in the account settings?
+I was charged twice for my subscription this month, please refund one charge
+The API is returning 403 Forbidden errors even with valid API key
+Please add dark mode support to the mobile app
+My account has been locked and I cannot access it
+How long does shipping take for international orders?
+The website is very slow and pages take forever to load
+I need to cancel my subscription immediately
+Can you help me integrate your API with our CRM system?
+The mobile app data is not syncing with the web version
+I forgot which email address I used to register my account
+Is there a way to export all my data in CSV format?
+The payment transaction failed but I was still charged the amount
+How do I upgrade my account to the premium plan?
+I'm getting error 500 internal server error when trying to save changes
+Can you provide detailed documentation for the REST API endpoints?

@@ -1,0 +1,37 @@
+[
+  {
+    "customer_name": "Alice Williams",
+    "email": "alice.w@company.com",
+    "query": "I'm trying to integrate your API with our CRM system, but I keep getting 403 Forbidden errors. I've checked the API key multiple times and it seems correct. Can you help?",
+    "priority": "high",
+    "ticket_id": "TICKET-2025-101"
+  },
+  {
+    "customer_name": "Bob Martinez",
+    "email": "bob.martinez@tech.co",
+    "query": "The mobile app keeps crashing whenever I try to upload images larger than 5MB. This is blocking my workflow.",
+    "priority": "medium",
+    "ticket_id": "TICKET-2025-102"
+  },
+  {
+    "customer_name": "Carol Anderson",
+    "email": "carol@enterprise.net",
+    "query": "Our security team needs information about your data encryption standards and compliance certifications. This is urgent for our vendor assessment.",
+    "priority": "critical",
+    "ticket_id": "TICKET-2025-103"
+  },
+  {
+    "customer_name": "David Lee",
+    "email": "d.lee@startup.com",
+    "query": "Just wanted to say thanks for the great service! But I have a small question - can I change my username?",
+    "priority": "low",
+    "ticket_id": "TICKET-2025-104"
+  },
+  {
+    "customer_name": "Emma Thompson",
+    "email": "emma.t@business.org",
+    "query": "Feature request: Would love to see dark mode support in the dashboard. Many of our team members work late hours.",
+    "priority": "low",
+    "ticket_id": "TICKET-2025-105"
+  }
+]

@@ -1,0 +1,186 @@
+# SkylarIQ Customer Support Agent Configuration
+
+agent:
+  name: "SkylarIQ"
+  description: "A structured and logical LangGraph Agent for customer support workflows"
+  personality: |
+    You are SkylarIQ — a structured and logical Lang Graph Agent.
+    You think in stages: each node represents a clear phase of the workflow.
+    You carefully carry forward state variables from one stage to the next.
+    You always know whether to execute sequentially (deterministic) or to choose dynamically (non-deterministic).
+    You orchestrate MCP clients to call either Atlas or Common servers as needed.
+    You log every decision clearly and output a final structured payload.
+
+# Input Schema
+input_schema:
+  customer_name: string
+  email: string
+  query: string
+  priority: string  # low, medium, high, critical
+  ticket_id: string
+
+# MCP Server Mappings
+mcp_servers:
+  atlas:
+    url: "${ATLAS_MCP_URL}"
+    description: "Abilities requiring external system interaction"
+    abilities:
+      - knowledge_base_search
+      - update_ticket
+      - close_ticket
+      - execute_api_calls
+      - trigger_notifications
+
+  common:
+    url: "${COMMON_MCP_URL}"
+    description: "Abilities with no external data dependencies"
+    abilities:
+      - accept_payload
+      - parse_request_text
+      - extract_entities
+      - normalize_fields
+      - enrich_records
+      - add_flags_calculations
+      - clarify_question
+      - extract_answer
+      - store_answer
+      - store_data
+      - solution_evaluation
+      - escalation_decision
+      - update_payload
+      - response_generation
+      - output_payload
+
+# Stage Definitions
+stages:
+  - name: INTAKE
+    emoji: "📥"
+    description: "Capture incoming request payload"
+    mode: deterministic
+    abilities:
+      - accept_payload
+    server: common
+    prompt: "Accept and validate the incoming customer support request"
+
+  - name: UNDERSTAND
+    emoji: "🧠"
+    description: "Parse and extract entities from request"
+    mode: deterministic
+    abilities:
+      - parse_request_text
+      - extract_entities
+    server: common
+    prompt: "Execute abilities in sequence to understand the customer query"
+
+  - name: PREPARE
+    emoji: "🛠️"
+    description: "Normalize and enrich data"
+    mode: deterministic
+    abilities:
+      - normalize_fields
+      - enrich_records
+      - add_flags_calculations
+    server: common
+    prompt: "Execute abilities in sequence to prepare data for processing"
+
+  - name: ASK
+    emoji: "❓"
+    description: "Request clarification from human if needed"
+    mode: deterministic
+    abilities:
+      - clarify_question
+    server: common
+    prompt: "Generate clarification questions if information is incomplete"
+
+  - name: WAIT
+    emoji: "⏳"
+    description: "Extract and store answers from human"
+    mode: deterministic
+    abilities:
+      - extract_answer
+      - store_answer
+    server: common
+    prompt: "Execute abilities in sequence to process human responses"
+
+  - name: RETRIEVE
+    emoji: "📚"
+    description: "Search knowledge base for solutions"
+    mode: deterministic
+    abilities:
+      - knowledge_base_search
+      - store_data
+    server: atlas
+    prompt: "Execute abilities in sequence to retrieve relevant information"
+
+  - name: DECIDE
+    emoji: "⚖️"
+    description: "Evaluate solutions and make routing decisions"
+    mode: non-deterministic
+    abilities:
+      - solution_evaluation
+      - escalation_decision
+      - update_payload
+    server: common
+    prompt: "Score solutions and escalate if confidence < 90%. Choose abilities dynamically based on evaluation results."
+
+  - name: UPDATE
+    emoji: "🔄"
+    description: "Update ticket status in external system"
+    mode: deterministic
+    abilities:
+      - update_ticket
+      - close_ticket
+    server: atlas
+    prompt: "Execute abilities in sequence to update ticket system"
+
+  - name: CREATE
+    emoji: "✍️"
+    description: "Generate customer response"
+    mode: deterministic
+    abilities:
+      - response_generation
+    server: common
+    prompt: "Execute ability to create structured customer response"
+
+  - name: DO
+    emoji: "🏃"
+    description: "Execute external actions"
+    mode: deterministic
+    abilities:
+      - execute_api_calls
+      - trigger_notifications
+    server: atlas
+    prompt: "Execute abilities in sequence to perform external actions"
+
+  - name: COMPLETE
+    emoji: "✅"
+    description: "Output final structured payload"
+    mode: deterministic
+    abilities:
+      - output_payload
+    server: common
+    prompt: "Execute ability to format and output final result"
+
+# State Variables
+state_variables:
+  - customer_name
+  - email
+  - query
+  - priority
+  - ticket_id
+  - parsed_query
+  - extracted_entities
+  - normalized_data
+  - enrichment_flags
+  - clarification_needed
+  - clarification_questions
+  - clarification_answers
+  - knowledge_results
+  - solution_score
+  - escalation_required
+  - selected_solution
+  - ticket_status
+  - generated_response
+  - api_results
+  - notification_status
+  - final_output
