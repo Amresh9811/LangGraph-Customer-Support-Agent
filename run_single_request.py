@@ -33,11 +33,11 @@ async def main():
 
     # Sample request
     request = {
-        "customer_name": "Amre ",
-        "email": "alex.johnsaon@example.com",
-        "query": "How will I get my refund for the product?",
+        "customer_name": "Alex Johnson",
+        "email": "alex.johnson@example.com",
+        "query": "I forgot my password and the reset link isn't working. I've tried multiple times but no email arrives.",
         "priority": "high",
-        "ticket_id": "TICKET-DEMO-0011"
+        "ticket_id": "TICKET-DEMO-001"
     }
 
     print("\nInput Request:")
