@@ -132,6 +132,68 @@ class MCPClient:
             "results": results
         }
 
+    def _analyze_query(self, query: str) -> Dict[str, Any]:
+        """Analyze query to determine intent, category, and keywords"""
+        query_lower = query.lower()
+
+        # Determine intent and category based on keywords
+        if any(word in query_lower for word in ['refund', 'return', 'money back', 'charge', 'charged', 'billing', 'payment']):
+            return {
+                "intent": "refund_request",
+                "category": "billing",
+                "keywords": ["refund", "payment", "billing"],
+                "issue_type": "billing"
+            }
+        elif any(word in query_lower for word in ['password', 'login', 'log in', 'sign in', 'access', 'locked', 'forgot']):
+            return {
+                "intent": "technical_support",
+                "category": "account_access",
+                "keywords": ["password", "reset", "login"],
+                "issue_type": "authentication"
+            }
+        elif any(word in query_lower for word in ['api', '403', '500', 'forbidden', 'error code', 'endpoint', 'integration']):
+            return {
+                "intent": "technical_support",
+                "category": "api_integration",
+                "keywords": ["api", "integration", "error"],
+                "issue_type": "api"
+            }
+        elif any(word in query_lower for word in ['crash', 'error', 'bug', 'not working', 'broken', 'issue', 'problem']):
+            return {
+                "intent": "technical_support",
+                "category": "technical_issue",
+                "keywords": ["error", "bug", "technical"],
+                "issue_type": "technical"
+            }
+        elif any(word in query_lower for word in ['food', 'quality', 'product', 'defect', 'damaged', 'poor']):
+            return {
+                "intent": "product_complaint",
+                "category": "product_quality",
+                "keywords": ["quality", "product", "complaint"],
+                "issue_type": "product_quality"
+            }
+        elif any(word in query_lower for word in ['feature', 'request', 'add', 'would like', 'suggestion']):
+            return {
+                "intent": "feature_request",
+                "category": "enhancement",
+                "keywords": ["feature", "request", "enhancement"],
+                "issue_type": "feature_request"
+            }
+        elif any(word in query_lower for word in ['account', 'username', 'email', 'profile', 'settings']):
+            return {
+                "intent": "account_management",
+                "category": "account_settings",
+                "keywords": ["account", "settings", "profile"],
+                "issue_type": "account"
+            }
+        else:
+            return {
+                "intent": "general_inquiry",
+                "category": "general",
+                "keywords": ["support", "help"],
+                "issue_type": "general"
+            }
+
     async def _simulate_ability_execution(self, ability_name: str,
                                           context: Dict[str, Any],
                                           server: MCPServer) -> Dict[str, Any]:
@@ -162,27 +224,35 @@ class MCPClient:
             }
 
         elif ability_name == "parse_request_text":
+            # Analyze the query dynamically
+            query = context.get("query", "")
+            analysis = self._analyze_query(query)
+
             return {
                 "success": True,
                 "data": {
                     "parsed_query": {
-                        "intent": "technical_support",
-                        "category": "account_access",
+                        "intent": analysis["intent"],
+                        "category": analysis["category"],
                         "urgency": context.get("priority", "medium"),
-                        "keywords": ["password", "reset", "login"]
+                        "keywords": analysis["keywords"]
                     }
                 },
                 "server": server.value
             }
 
         elif ability_name == "extract_entities":
+            # Extract entities based on query analysis
+            query = context.get("query", "")
+            analysis = self._analyze_query(query)
+
             return {
                 "success": True,
                 "data": {
                     "extracted_entities": {
                         "customer_name": context.get("customer_name"),
                         "email": context.get("email"),
-                        "issue_type": "authentication",
+                        "issue_type": analysis["issue_type"],
                         "product": "web_portal"
                     }
                 },
@@ -269,23 +339,132 @@ class MCPClient:
             }
 
         elif ability_name == "knowledge_base_search":
+            # Get query-specific knowledge base results
+            query = context.get("query", "")
+            parsed_query = context.get("parsed_query", {})
+            analysis = self._analyze_query(query)
+            category = analysis.get("category", "general")
+
+            # Return different KB articles based on query category
+            if category == "billing":
+                kb_results = [
+                    {
+                        "article_id": "KB-BILL-001",
+                        "title": "Refund and Return Policy",
+                        "confidence": 0.92,
+                        "solution": "We offer a 30-day money-back guarantee. To process your refund, please provide your order number and reason for return. Refunds are typically processed within 5-7 business days."
+                    },
+                    {
+                        "article_id": "KB-BILL-002",
+                        "title": "Billing Dispute Resolution",
+                        "confidence": 0.88,
+                        "solution": "If you were charged incorrectly, please contact our billing department with your transaction details. We'll investigate and resolve the issue within 48 hours."
+                    }
+                ]
+            elif category == "product_quality":
+                kb_results = [
+                    {
+                        "article_id": "KB-QUAL-001",
+                        "title": "Product Quality Concerns",
+                        "confidence": 0.90,
+                        "solution": "We apologize for the quality issues. Please provide photos or detailed description of the problem. We can offer a replacement, exchange, or full refund based on your preference."
+                    },
+                    {
+                        "article_id": "KB-QUAL-002",
+                        "title": "Quality Guarantee Program",
+                        "confidence": 0.85,
+                        "solution": "All products come with our quality guarantee. If the product doesn't meet your expectations, contact us within 30 days for a no-questions-asked replacement or refund."
+                    }
+                ]
+            elif category == "account_access":
+                kb_results = [
+                    {
+                        "article_id": "KB-AUTH-001",
+                        "title": "Password Reset Procedures",
+                        "confidence": 0.95,
+                        "solution": "Use the 'Forgot Password' link on the login page. Enter your email, and we'll send a reset link. If you don't receive it within 5 minutes, check your spam folder or contact support."
+                    },
+                    {
+                        "article_id": "KB-AUTH-002",
+                        "title": "Account Lockout Resolution",
+                        "confidence": 0.87,
+                        "solution": "Accounts are temporarily locked after 5 failed login attempts. Wait 30 minutes or contact support to unlock immediately."
+                    }
+                ]
+            elif category == "technical_issue":
+                kb_results = [
+                    {
+                        "article_id": "KB-TECH-001",
+                        "title": "App Troubleshooting Guide",
+                        "confidence": 0.88,
+                        "solution": "Try these steps: 1) Clear app cache and data 2) Restart your device 3) Reinstall the app 4) Ensure you're running the latest version. If the issue persists, contact support with your device model and OS version."
+                    },
+                    {
+                        "article_id": "KB-TECH-002",
+                        "title": "Common Error Resolution",
+                        "confidence": 0.83,
+                        "solution": "Most errors can be resolved by updating to the latest version, checking your internet connection, or clearing browser cache. For persistent issues, please provide the exact error message."
+                    }
+                ]
+            elif category == "api_integration":
+                kb_results = [
+                    {
+                        "article_id": "KB-API-001",
+                        "title": "API Authentication Errors",
+                        "confidence": 0.93,
+                        "solution": "403 Forbidden errors typically indicate invalid API keys or insufficient permissions. Verify your API key is correct, active, and has the required scopes. Regenerate your key if needed."
+                    },
+                    {
+                        "article_id": "KB-API-002",
+                        "title": "API Integration Best Practices",
+                        "confidence": 0.85,
+                        "solution": "Ensure you're including the API key in the Authorization header, using the correct endpoint URL, and following rate limits. Check our API documentation for examples."
+                    }
+                ]
+            elif category == "enhancement":
+                kb_results = [
+                    {
+                        "article_id": "KB-FEAT-001",
+                        "title": "Feature Request Process",
+                        "confidence": 0.80,
+                        "solution": "Thank you for your suggestion! We've added your feature request to our product roadmap. Our team reviews all requests quarterly and prioritizes based on user demand and impact."
+                    },
+                    {
+                        "article_id": "KB-FEAT-002",
+                        "title": "Upcoming Features",
+                        "confidence": 0.75,
+                        "solution": "Check our product roadmap and release notes for upcoming features. You can vote on features you'd like to see and track their development status."
+                    }
+                ]
+            elif category == "account_settings":
+                kb_results = [
+                    {
+                        "article_id": "KB-ACCT-001",
+                        "title": "Account Settings Guide",
+                        "confidence": 0.91,
+                        "solution": "You can update your account settings from the Profile page. Navigate to Settings > Account to change your email, username, password, and preferences."
+                    },
+                    {
+                        "article_id": "KB-ACCT-002",
+                        "title": "Profile Management",
+                        "confidence": 0.86,
+                        "solution": "To modify your profile information, log in and go to Settings. You can update personal details, notification preferences, and privacy settings."
+                    }
+                ]
+            else:
+                kb_results = [
+                    {
+                        "article_id": "KB-GEN-001",
+                        "title": "General Support Guide",
+                        "confidence": 0.75,
+                        "solution": "For assistance with your inquiry, please provide more details about your issue. You can also check our FAQ section or contact our support team directly."
+                    }
+                ]
+
             return {
                 "success": True,
                 "data": {
-                    "knowledge_results": [
-                        {
-                            "article_id": "KB-1234",
-                            "title": "Password Reset Procedures",
-                            "confidence": 0.95,
-                            "solution": "Use the 'Forgot Password' link on the login page"
-                        },
-                        {
-                            "article_id": "KB-5678",
-                            "title": "Account Lockout Resolution",
-                            "confidence": 0.87,
-                            "solution": "Contact support to unlock account"
-                        }
-                    ]
+                    "knowledge_results": kb_results
                 },
                 "server": server.value
             }
